@@ -1,5 +1,5 @@
 using System;
-namespace PianoSimulation{
+namespace InteractivePiano{
 
     public class PianoWire : IMusicalString{
 

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System;
-namespace PianoSimulation{
+namespace InteractivePiano{
     
     public class Piano : IPiano{
         public Piano(string keys = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ",  int samplingRate = 44100){

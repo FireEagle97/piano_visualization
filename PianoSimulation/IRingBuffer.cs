@@ -1,4 +1,4 @@
-﻿namespace PianoSimulation
+﻿namespace InteractivePiano
 {
     /// <summary>
     /// Defines a fixed size ring, or circular, buffer

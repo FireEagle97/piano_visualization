@@ -2,20 +2,21 @@
 using NAudio.Wave;
 
 
-namespace PianoSimulation
+namespace InteractivePiano
 {
     /// <summary>
     /// This class is used to play a stream of doubles that represent audio samples
     /// </summary>
     public sealed class Audio : IDisposable
     {
-        private static readonly Audio instance = new Audio();
-        private WaveOutEvent _waveOut;
-        private WaveFormat _waveFormat;
-        private BufferedWaveProvider _bufferedWaveProvider;
+        private static  readonly Audio instance = new Audio();
+        private  static WaveOutEvent _waveOut;
+        private static WaveFormat _waveFormat;
+        private static BufferedWaveProvider _bufferedWaveProvider;
 
         private int _bufferCount = 0;
-        private byte[] _buffer;
+        private static byte[] _buffer;
+     
 
         /// <summary>
         /// Audio constructor
@@ -23,19 +24,17 @@ namespace PianoSimulation
         /// <param name="bufferSize">Length of buffer held in this class, default is 4096</param>
         /// <param name="samplingRate">Audio sampling rate,, default value is 44100</param>
         static Audio()
-        {   WaveOutEvent waveOut = new WaveOutEvent();
-            WaveFormat waveFormat = new WaveFormat();
-            BufferedWaveProvider bufferedWaveProvider = new BufferedWaveProvider(waveFormat);
+        {   
             int bufferSize = 4096 * 16;
             int samplingRate = 44100;
-            waveOut = new WaveOutEvent();
-            waveFormat = new WaveFormat(samplingRate, 16, 1);
-            bufferedWaveProvider = new BufferedWaveProvider(waveFormat); 
-            bufferedWaveProvider.DiscardOnBufferOverflow = true;
-            byte[] buffer = new byte[bufferSize];
+            _waveOut = new WaveOutEvent();
+            _waveFormat = new WaveFormat(samplingRate, 16, 1);
+            _bufferedWaveProvider = new BufferedWaveProvider(_waveFormat); 
+            _bufferedWaveProvider.DiscardOnBufferOverflow = true;
+            _buffer = new byte[bufferSize];
 
-            waveOut.Init(bufferedWaveProvider);
-            waveOut.Play();
+            _waveOut.Init(_bufferedWaveProvider);
+            _waveOut.Play();
         }
 
         private Audio(int bufferSize = 4096 * 16, int samplingRate = 44100)
@@ -53,7 +52,7 @@ namespace PianoSimulation
         public static Audio Instance 
         {
             get
-            {
+            { 
                 return instance;
             }
         }
@@ -147,6 +146,7 @@ namespace PianoSimulation
 
         public void Dispose(){
             if (_bufferedWaveProvider != null){
+                _bufferedWaveProvider.ClearBuffer();
                 _bufferedWaveProvider=null;
             }
             if(_waveOut != null){

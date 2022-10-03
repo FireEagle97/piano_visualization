@@ -1,5 +1,5 @@
 
-namespace PianoSimulation{
+namespace InteractivePiano{
 
     public class CircularArray : IRingBuffer{
         public CircularArray(int arrLength){

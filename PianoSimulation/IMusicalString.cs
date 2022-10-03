@@ -1,4 +1,4 @@
-﻿namespace PianoSimulation
+﻿namespace InteractivePiano
 {
     public interface IMusicalString
     {

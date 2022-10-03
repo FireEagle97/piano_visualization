@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace PianoSimulation
+namespace InteractivePiano
 {
     public interface IPiano
     {

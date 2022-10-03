@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PianoSimulation;
+using InteractivePiano;
 namespace PianoSimulationTests
 {
     [TestClass]

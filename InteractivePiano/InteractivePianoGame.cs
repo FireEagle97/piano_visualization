@@ -1,6 +1,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace InteractivePiano
 {
@@ -8,6 +9,8 @@ namespace InteractivePiano
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Piano _pianoObj;
+        private Audio _audioObj;
 
         public InteractivePianoGame()
         {
@@ -18,8 +21,8 @@ namespace InteractivePiano
 
         protected override void Initialize()
         {
+            _audioObj = Audio.Instance;
             // TODO: Add your initialization logic here
-
             base.Initialize();
         }
 
@@ -34,12 +37,19 @@ namespace InteractivePiano
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
-
+            _pianoObj = new Piano();
+            if (Keyboard.GetState().IsKeyDown(Keys.Q)){
+                _pianoObj.StrikeKey('q');
+                for(int i =0 ; i< _pianoObj.SamplingRate*3; i++){
+                    _audioObj.Play(_pianoObj.Play());
+                }
+            }
+               
             // TODO: Add your update logic here
 
             base.Update(gameTime);
+        
         }
-
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
