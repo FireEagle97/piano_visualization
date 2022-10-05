@@ -1,7 +1,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-
+using System.IO;
+using Newtonsoft.Json;
 namespace InteractivePiano
 {
     public class InteractivePianoGame : Game
@@ -40,12 +41,16 @@ namespace InteractivePiano
             string pressedKey;
             KeyboardState ns = Keyboard.GetState();
             foreach (Microsoft.Xna.Framework.Input.Keys a in ns.GetPressedKeys())
-            {
+            {   
                 pressedKey = a.ToString();
-                _pianoObj.StrikeKey(pressedKey.ToLower()[0]);
-                for(int i =0 ; i< _pianoObj.SamplingRate*3; i++){
-                    _audioObj.Play(_pianoObj.Play());
+                string pressedKeyChar = LoadJson(pressedKey);
+                if(pressedKeyChar.Length > 0){
+                    _pianoObj.StrikeKey(pressedKeyChar[0]);
+                    for(int i =0 ; i< _pianoObj.SamplingRate*3; i++){
+                        _audioObj.Play(_pianoObj.Play());
+                    }
                 }
+               
             }
             // Keys pressedKey = (Keys)((int)(char.ToUpper(_pianoObj.Keys[0])));
             if (Keyboard.GetState().IsKeyDown(Keys.Q)){
@@ -64,6 +69,23 @@ namespace InteractivePiano
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+        private string LoadJson(string key){
+            string keyStr = "";
+            using (StreamReader r = new StreamReader("keys.json"))
+            {
+                string json = r.ReadToEnd();
+                if (json.Contains(key)){
+                    dynamic keysArray = JsonConvert.DeserializeObject(json);
+                    foreach (var item in keysArray){
+                        keyStr = item[key].key;
+                    }
+                }
+                
+            }
+            return keyStr;
+
+            
         }
     }
 }
