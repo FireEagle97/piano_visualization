@@ -50,13 +50,7 @@ namespace InteractivePiano
                         _audioObj.Play(_pianoObj.Play());
                     }
                 }
-               
-            }
-            // Keys pressedKey = (Keys)((int)(char.ToUpper(_pianoObj.Keys[0])));
-            if (Keyboard.GetState().IsKeyDown(Keys.Q)){
-                
-            }
-               
+            }  
             // TODO: Add your update logic here
 
             base.Update(gameTime);
