@@ -1,7 +1,6 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System;
 
 namespace InteractivePiano
 {
@@ -38,11 +37,19 @@ namespace InteractivePiano
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             _pianoObj = new Piano();
-            if (Keyboard.GetState().IsKeyDown(Keys.Q)){
-                _pianoObj.StrikeKey('q');
+            string pressedKey;
+            KeyboardState ns = Keyboard.GetState();
+            foreach (Microsoft.Xna.Framework.Input.Keys a in ns.GetPressedKeys())
+            {
+                pressedKey = a.ToString();
+                _pianoObj.StrikeKey(pressedKey.ToLower()[0]);
                 for(int i =0 ; i< _pianoObj.SamplingRate*3; i++){
                     _audioObj.Play(_pianoObj.Play());
                 }
+            }
+            // Keys pressedKey = (Keys)((int)(char.ToUpper(_pianoObj.Keys[0])));
+            if (Keyboard.GetState().IsKeyDown(Keys.Q)){
+                
             }
                
             // TODO: Add your update logic here
