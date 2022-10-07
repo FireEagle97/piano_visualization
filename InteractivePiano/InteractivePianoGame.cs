@@ -1,14 +1,15 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
-using System.IO;
-using Newtonsoft.Json;
+using System.Collections.Generic;
 namespace InteractivePiano
 {
     public class InteractivePianoGame : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        // private List<PianoSprite> _pianoSprites;
+        private PianoSprite _pianoSprite;
         private Piano _pianoObj;
         private Audio _audioObj;
 
@@ -21,7 +22,19 @@ namespace InteractivePiano
 
         protected override void Initialize()
         {
+            _graphics.IsFullScreen = false;
+            _graphics.PreferredBackBufferWidth = 1300;
+            _graphics.PreferredBackBufferHeight = 500;
+            _graphics.ApplyChanges();
             _audioObj = Audio.Instance;
+            // _pianoSprites = new List<PianoSprite>();
+            _pianoSprite = new PianoSprite(this);
+            this.Components.Add(_pianoSprite);
+            // foreach(PianoSprite _pianoSprite in _pianoSprites){
+            //     _pianoSprite = new PianoSprite(this);
+            //     this.Components.Add(pianoSprite);
+            // }
+            
             // TODO: Add your initialization logic here
             base.Initialize();
         }
@@ -40,16 +53,22 @@ namespace InteractivePiano
             _pianoObj = new Piano();
             string pressedKey;
             KeyboardState ns = Keyboard.GetState();
-            foreach (Microsoft.Xna.Framework.Input.Keys a in ns.GetPressedKeys())
+            foreach (Keys a in ns.GetPressedKeys())
             {   
                 pressedKey = a.ToString();
-                string pressedKeyChar = LoadJson(pressedKey);
-                if(pressedKeyChar.Length > 0){
-                    _pianoObj.StrikeKey(pressedKeyChar[0]);
+                string pressedKeyStr = _pianoSprite.LoadJson(pressedKey);
+                int pressedKeyInd = _pianoObj.Keys.IndexOf(pressedKeyStr);
+                _pianoSprite.Keys[pressedKeyInd].IsPressed = true;
+                if(pressedKeyStr.Length > 0){
+                    _pianoObj.StrikeKey(pressedKeyStr[0]);
+                    _audioObj.Reset();
                     for(int i =0 ; i< _pianoObj.SamplingRate*3; i++){
                         _audioObj.Play(_pianoObj.Play());
                     }
                 }
+                
+                
+                
             }  
             // TODO: Add your update logic here
 
@@ -64,22 +83,6 @@ namespace InteractivePiano
 
             base.Draw(gameTime);
         }
-        private string LoadJson(string key){
-            string keyStr = "";
-            using (StreamReader r = new StreamReader("keys.json"))
-            {
-                string json = r.ReadToEnd();
-                if (json.Contains(key)){
-                    dynamic keysArray = JsonConvert.DeserializeObject(json);
-                    foreach (var item in keysArray){
-                        keyStr = item[key].key;
-                    }
-                }
-                
-            }
-            return keyStr;
-
-            
-        }
+        
     }
 }
