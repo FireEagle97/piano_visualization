@@ -2,7 +2,8 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
-using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Newtonsoft.Json;
 namespace InteractivePiano{
     public class PianoSprite : DrawableGameComponent{
@@ -55,7 +56,6 @@ namespace InteractivePiano{
                     }
                     pxBlack+=68;
                 }
-
             }
             base.Draw(gameTime);
         }
@@ -101,16 +101,19 @@ namespace InteractivePiano{
                     pressedKeyIndx = _keysStr.IndexOf(pressedKey);
                     _keys[pressedKeyIndx].IsPressed = true;
                 }
-
             }
+
             base.Update(gameTime);
         }
         public string GetKeyStr(string key){
             string keyStr = "";
-            using (StreamReader r = new StreamReader("keys.json"))
+            string fileName = "keys.json";
+            string keys
+
+            using (StreamReader r = new JSONObject("keys.json"))
             {
                 string json = r.ReadToEnd();
-                if (json.Contains(key)){
+                if (json.hasKey(key)){
                     dynamic keysArray = JsonConvert.DeserializeObject(json);
                     foreach (var item in keysArray){
                         keyStr = item[key].key;
