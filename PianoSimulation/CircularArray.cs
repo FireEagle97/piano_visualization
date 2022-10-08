@@ -1,18 +1,20 @@
-
+using System;
 namespace InteractivePiano{
 
     public class CircularArray : IRingBuffer{
-        public CircularArray(int arrLength){
-            arr = new double[arrLength];
+       private double[] _buffer;
+        public CircularArray(int bufferLength){
+            if(bufferLength >0){
+                _buffer = new double[bufferLength];
+            }else{
+                throw new ArgumentException("Array length should be a positive number");
+            }
+            
             indexPositon = 0;
         }
-       public double[] arr{
-        get;
-        set;
-       }
         public int Length {
             get{
-               return arr.Length;
+               return _buffer.Length;
             }
         }
 
@@ -23,18 +25,18 @@ namespace InteractivePiano{
         // Returns and removes the first element in the buffer. Adds value to the end of the buffer
         public double Shift(double value){
             
-            double firstValue = arr[indexPositon];
-            arr[indexPositon]=value;
+            double firstValue = _buffer[indexPositon];
+            _buffer[indexPositon]=value;
             indexPositon = (indexPositon + 1 )% Length;
             return firstValue;
         }
         /// Indexer to go through elements in the buffer starting at the front to the value at the end
         public double this[int index] {
-            get {return arr[(indexPositon + index )% Length];}
+            get {return _buffer[(indexPositon + index )% Length];}
         }
         /// Performs a deep copy of the array into the buffer
         public void Fill(double[] array){
-            array.CopyTo(arr,0);
+            array.CopyTo(_buffer,0);
         }
     }
 }
