@@ -12,6 +12,7 @@ namespace InteractivePiano{
         private Texture2D _blackKeyImage;
         private Texture2D _pressedBlackImage;
         private Texture2D _pressedWhiteImage;
+        private SpriteFont note;
         private string _keysStr;
         // private Texture2D _greyImage;
         private Game _game;
@@ -24,22 +25,21 @@ namespace InteractivePiano{
 
         public override void Draw(GameTime gameTime)
         {   
-            int pxBlack = 40;
+            int pxBlack = 80;
             int pxWhite =0;
-            // for(int i =0 ; i< _keys.Count; i++){
-            //     if(_keys[i].Note.Contains("#")== false){
-             
-            //         _spriteBatch.Begin();
-            //         _spriteBatch.Draw(_whiteKeyImage, new Vector2(_keys[i].Position.X+pxWhite, _keys[i].Position.Y), Color.White);
-            //         _spriteBatch.End();
-            //         if(_keys[i].IsPressed){
-            //             _spriteBatch.Begin();
-            //             _spriteBatch.Draw(_pressedWhiteImage, new Vector2(_keys[i].Position.X+pxWhite, _keys[i].Position.Y), Color.White);
-            //             _spriteBatch.End();
-            //         }
-            //         pxWhite+=50;
-            //     }
-            // }
+            for(int i =0 ; i< _keys.Count; i++){
+                if(_keys[i].Note.Contains("#") == false){
+                    _spriteBatch.Begin();
+                    _spriteBatch.Draw(_whiteKeyImage, new Vector2(_keys[i].Position.X+pxWhite, _keys[i].Position.Y), Color.White);
+                    _spriteBatch.End();
+                    if(_keys[i].IsPressed){
+                        _spriteBatch.Begin();
+                        _spriteBatch.Draw(_pressedWhiteImage, new Vector2(_keys[i].Position.X+pxWhite, _keys[i].Position.Y), Color.White);
+                        _spriteBatch.End();
+                    }
+                    pxWhite+=50;
+                }
+            }
             for(int j =0; j< _keys.Count;j++){
                 if(_keys[j].Note.Contains("#")){
                     _spriteBatch.Begin();
@@ -48,55 +48,12 @@ namespace InteractivePiano{
                     if(_keys[j].IsPressed){
                         _spriteBatch.Begin();
                         _spriteBatch.Draw(_pressedBlackImage, new Vector2(_keys[j].Position.X+pxBlack, _keys[j].Position.Y), Color.White);
+                        _spriteBatch.DrawString(note,"C", new Vector2(200,100), Color.Red);
                         _spriteBatch.End();
                     }
-                    pxBlack+=100;
+                    pxBlack+=68;
                 }
             }
-            
-            
-            // for(int i = 0; i<25; i++){
-            //     if(_keys[i].IsPressed == true){
-            //         _spriteBatch.Begin();
-            //         _spriteBatch.Draw(_pressedWhiteImage, new Vector2(_keys[i].Position.X+pxWhite, _keys[i].Position.Y), Color.White);
-            //         _spriteBatch.End();
-            //     }else {
-            //         _spriteBatch.Begin();
-            //         _spriteBatch.Draw(_whiteKeyImage, new Vector2(_keys[i].Position.X+pxWhite, _keys[i].Position.Y), Color.White);
-            //         _spriteBatch.End();
-            //     }
-            //     pxWhite+=50;
-                
-            // }
-            // for(int j =25; j < 37; j++){
-                
-            //     if(_keys[j].IsPressed == true){
-            //         _spriteBatch.Begin();
-            //         _spriteBatch.Draw(_pressedBlackImage, new Vector2(_keys[j].Position.X+pxBlack, _keys[j].Position.Y), Color.White);
-            //         _spriteBatch.End();
-            //     }else{
-            //         _spriteBatch.Begin();
-            //         _spriteBatch.Draw(_blackKeyImage, new Vector2(_keys[j].Position.X+pxBlack, _keys[j].Position.Y), Color.White);
-            //         _spriteBatch.End();
-            //     }
-            //     pxBlack+=100;
-            // }
-            //////////
-            //  for(int i = 0; i<25; i++){
-            
-            //     _spriteBatch.Begin();
-            //     _spriteBatch.Draw(_whiteKeyImage, new Vector2(_keys[i].Position.X+pxWhite, _keys[i].Position.Y), Color.White);
-            //     _spriteBatch.End();
-            //     pxWhite+=50;
-            //     }
-                
-         
-            // for(int j =0; j < 12; j++){
-            //     _spriteBatch.Begin();
-            //     _spriteBatch.Draw(_blackKeyImage, new Vector2(_keys[j].Position.X+pxBlack, _keys[j].Position.Y), Color.White);
-            //     _spriteBatch.End();
-            //     pxBlack+=100;
-            // }
             base.Draw(gameTime);
         }
 
@@ -120,7 +77,8 @@ namespace InteractivePiano{
             _whiteKeyImage = _game.Content.Load<Texture2D>("white_key");
             _blackKeyImage = _game.Content.Load<Texture2D>("black_key");
             _pressedBlackImage = _game.Content.Load<Texture2D>("pressed_black_key");
-            _pressedWhiteImage = _game.Content.Load<Texture2D>("pressed_white_key");   
+            _pressedWhiteImage = _game.Content.Load<Texture2D>("pressed_white_key");
+            note = _game.Content.Load<SpriteFont>("C");   
             base.LoadContent();
         }
         public override void Update(GameTime gameTime)
@@ -133,7 +91,7 @@ namespace InteractivePiano{
                 for (int i =0; i< _keys.Count; i++){
                     _keys[i].IsPressed = false;
                 }
-                _currentKBState = _previousKBState;
+                // _currentKBState = _previousKBState;
                 // pressedKey = LoadJson(pressedKeys[0].ToString());
                 // pressedKeyIndx = _keysStr.IndexOf(pressedKey);
                 // _keys[pressedKeyIndx].IsPressed = false;

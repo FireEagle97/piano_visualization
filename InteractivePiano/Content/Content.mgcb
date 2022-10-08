@@ -37,17 +37,12 @@
 /processorParam:TextureFormat=Color
 /build:black_key.png
 
-#begin black_key.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
+#begin C.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:black_key.png
+/processorParam:TextureFormat=Compressed
+/build:C.spritefont
 
 #begin pressed_black_key.png
 /importer:TextureImporter

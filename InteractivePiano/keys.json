@@ -101,7 +101,7 @@
         "OemPeriod":{
             "key":"."
         },
-        "OemSimicolon":{
+        "OemSemicolon":{
             "key":";"
         },
         "OemQuestion":{

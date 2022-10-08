@@ -24,7 +24,7 @@ namespace InteractivePiano
         protected override void Initialize()
         {
             _graphics.IsFullScreen = false;
-            _graphics.PreferredBackBufferWidth = 1300;
+            _graphics.PreferredBackBufferWidth = 1200;
             _graphics.PreferredBackBufferHeight = 500;
             _graphics.ApplyChanges();
             _audioObj = Audio.Instance;
