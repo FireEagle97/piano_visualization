@@ -37,12 +37,12 @@
 /processorParam:TextureFormat=Color
 /build:black_key.png
 
-#begin C.spritefont
+#begin note.spritefont
 /importer:FontDescriptionImporter
 /processor:FontDescriptionProcessor
 /processorParam:PremultiplyAlpha=True
 /processorParam:TextureFormat=Compressed
-/build:C.spritefont
+/build:note.spritefont
 
 #begin pressed_black_key.png
 /importer:TextureImporter

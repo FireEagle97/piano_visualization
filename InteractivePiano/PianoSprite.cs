@@ -14,6 +14,7 @@ namespace InteractivePiano{
         private Texture2D _pressedWhiteImage;
         private SpriteFont note;
         private string _keysStr;
+        private List<string>_keysNotes;
         // private Texture2D _greyImage;
         private Game _game;
         private KeyboardState _previousKBState;
@@ -21,6 +22,7 @@ namespace InteractivePiano{
 
         public PianoSprite(Game game): base(game){
             _game = game;
+            
         }
 
         public override void Draw(GameTime gameTime)
@@ -35,6 +37,7 @@ namespace InteractivePiano{
                     if(_keys[i].IsPressed){
                         _spriteBatch.Begin();
                         _spriteBatch.Draw(_pressedWhiteImage, new Vector2(_keys[i].Position.X+pxWhite, _keys[i].Position.Y), Color.White);
+                        _spriteBatch.DrawString(note,_keysNotes[i], new Vector2(_keys[i].Position.X+pxWhite,250), Color.Red);
                         _spriteBatch.End();
                     }
                     pxWhite+=50;
@@ -48,7 +51,7 @@ namespace InteractivePiano{
                     if(_keys[j].IsPressed){
                         _spriteBatch.Begin();
                         _spriteBatch.Draw(_pressedBlackImage, new Vector2(_keys[j].Position.X+pxBlack, _keys[j].Position.Y), Color.White);
-                        _spriteBatch.DrawString(note,"C", new Vector2(200,100), Color.Red);
+                        _spriteBatch.DrawString(note,_keysNotes[j], new Vector2(_keys[j].Position.X+pxBlack,250), Color.Red);
                         _spriteBatch.End();
                     }
                     pxBlack+=68;
@@ -63,10 +66,10 @@ namespace InteractivePiano{
             _keys = new List<Key>();
             Piano pianoObj = new Piano();
             _keysStr = pianoObj.Keys;
-            string[] keysNotes = {"C","C#","D","D#","E","F","F#","G","G#","A","A#","B","C","C#","D",
+            _keysNotes = new List<string>{"C","C#","D","D#","E","F","F#","G","G#","A","A#","B","C","C#","D",
             "D#","E","F","F#","G","G#","A","A#","B","C","C#","D","D#","E","F","F#","G","G#","A","A#","B","C"};
             for(int i =0; i< _keysStr.Length; i++){
-                _keys.Add(new Key(0,0,GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, false,keysNotes[i]));
+                _keys.Add(new Key(0,0,GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, false,_keysNotes[i]));
             } 
             base.Initialize();
         }
@@ -78,7 +81,7 @@ namespace InteractivePiano{
             _blackKeyImage = _game.Content.Load<Texture2D>("black_key");
             _pressedBlackImage = _game.Content.Load<Texture2D>("pressed_black_key");
             _pressedWhiteImage = _game.Content.Load<Texture2D>("pressed_white_key");
-            note = _game.Content.Load<SpriteFont>("C");   
+            note = _game.Content.Load<SpriteFont>("note");   
             base.LoadContent();
         }
         public override void Update(GameTime gameTime)
