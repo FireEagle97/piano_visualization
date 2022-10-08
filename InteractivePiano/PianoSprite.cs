@@ -2,9 +2,6 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework.Input;
-using System.Text.Json;
-using System.Text.Json.Serialization;
-using Newtonsoft.Json;
 namespace InteractivePiano{
     public class PianoSprite : DrawableGameComponent{
         private List<Key> _keys;
@@ -106,24 +103,19 @@ namespace InteractivePiano{
             base.Update(gameTime);
         }
         public string GetKeyStr(string key){
-            string keyStr = "";
-            string fileName = "keys.json";
-            string keys
-
-            using (StreamReader r = new JSONObject("keys.json"))
-            {
-                string json = r.ReadToEnd();
-                if (json.hasKey(key)){
-                    dynamic keysArray = JsonConvert.DeserializeObject(json);
-                    foreach (var item in keysArray){
-                        keyStr = item[key].key;
-                    }
-                }
-                
+            Dictionary<string,string> keys = new Dictionary<string,string>(){
+            {"Q","q"},{"D2","2"},{"W","w"},{"E","e"},{"D4","4"},{"R","r"},{"D5","5"},
+            {"T","t"},{"Y","y"},{"D7","7"},{"U","u"},{"D8","8"},{"I","i"},{"D9","9"},
+            {"O","o"},{"P","p"},{"OemMinus","-"},{"OemOpenBrackets","["},{"OemPlus","="},
+            {"Z","z"},{"X","x"},{"D","d"},{"C","c"},{"F","f"},{"V","v"},{"G","g"},{"B","b"},
+            {"N","n"},{"J","j"},{"M","m"},{"K","k"},{"OemComma",","},{"OemPeriod","."},{"OemSemicolon",";"},
+            {"OemQuestion","/"},{"OemQuotes","'"},{"Space"," "}
+            };
+            if(keys.ContainsKey(key)){
+                return keys[key];
             }
-            return keyStr;
-
-            
+            return "";
+      
         }
         public List<Key> Keys{
             get{
