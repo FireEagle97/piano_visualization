@@ -3,10 +3,11 @@ using System;
 namespace InteractivePiano{
     
     public class Piano : IPiano{
+        private List<IMusicalString> _wiresArray;
         public Piano(string keys = "q2we4r5ty7u8i9op-[=zxdcfvgbnjmk,.;/' ",  int samplingRate = 44100){
             Keys = keys;
             SamplingRate = samplingRate;
-            WiresArr = new List<IMusicalString>();
+            _wiresArray = new List<IMusicalString>();
             CreateWires(keys);//read and create the wires based on the string keys
             
         }
@@ -17,28 +18,27 @@ namespace InteractivePiano{
         public List<IMusicalString> WiresArr{
             get;
         }
+        /// Strikes the piano key (wire) corresponding to the specified character
+         public void StrikeKey(char key){
+            if(Keys.IndexOf(key) == -1){
+                throw new ArgumentException("key doesn't exists in keys list");
+            }
+            _wiresArray[Keys.IndexOf(key)].Strike();
+        }
         private List<IMusicalString> CreateWires(String Keys){
-            foreach (char key in Keys){
-            double frequency = Math.Pow(2.0,(double)((Keys.IndexOf(key)-24.0)/12.0))*440.0;
-            PianoWire aWire = new PianoWire(frequency, 44100);
-            WiresArr.Add(aWire); 
+            for(int i =0; i<Keys.Length;i++){
+                double frequency = Math.Pow(2.0,(double)((i-24.0)/12.0))*440.0;
+                PianoWire aWire = new PianoWire(frequency, 44100);
+                _wiresArray.Add(aWire); 
             }
 
-            return WiresArr;
+            return _wiresArray;
         }
-        /// Strikes the piano key (wire) corresponding to the specified character
-        public void StrikeKey(char key){
-            double frequency = Math.Pow(2.0,(double)((Keys.IndexOf(key)-24.0)/12.0))*440.0;
-            foreach (PianoWire wire in WiresArr){
-                if(wire.NoteFrequency== frequency){
-                    wire.Strike();
-                }
-            }
-        }
+
         /// Plays all of the vibrating keys (wires) at the current time step.
         public double Play(){
             double sumOfSamples =0;
-            foreach (PianoWire wire in WiresArr){
+            foreach (PianoWire wire in _wiresArray){
               sumOfSamples += wire.Sample();
             }
 
@@ -48,8 +48,7 @@ namespace InteractivePiano{
         public List<string> GetPianoKeys(){
             List<string> PianoKeys = new List<string>();
             for(int i =0; i<Keys.Length;i++){
-                double frequency = Math.Pow(2.0,(double)((i-24.0)/12.0))*440.0;
-                string aKey = $" {Keys[i]} {frequency}";
+                string aKey = $" {Keys[i]} {_wiresArray[i].NoteFrequency}";
                 PianoKeys.Add(aKey);
 
             }

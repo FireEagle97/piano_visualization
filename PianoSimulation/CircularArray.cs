@@ -4,12 +4,11 @@ namespace InteractivePiano{
     public class CircularArray : IRingBuffer{
        private double[] _buffer;
         public CircularArray(int bufferLength){
-            if(bufferLength >0){
-                _buffer = new double[bufferLength];
-            }else{
-                throw new ArgumentException("Array length should be a positive number");
+            if(bufferLength < 0){
+                throw new ArgumentException("Array length should be a positive number" + bufferLength);
+                
             }
-            
+            _buffer = new double[bufferLength];      
             indexPositon = 0;
         }
         public int Length {

@@ -28,14 +28,8 @@ namespace InteractivePiano
             _graphics.PreferredBackBufferHeight = 500;
             _graphics.ApplyChanges();
             _audioObj = Audio.Instance;
-            // _pianoSprites = new List<PianoSprite>();
-            // _pianoSprite = new PianoSprite(this);
             this.Components.Add(_pianoSprite);
-            // foreach(PianoSprite _pianoSprite in _pianoSprites){
-            //     _pianoSprite = new PianoSprite(this);
-            //     this.Components.Add(pianoSprite);
-            // }
-            
+
             // TODO: Add your initialization logic here
             base.Initialize();
         }
@@ -52,12 +46,10 @@ namespace InteractivePiano
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
             _pianoObj = new Piano();
-            string pressedKey;
-            KeyboardState ns = Keyboard.GetState();
-            foreach (Keys a in ns.GetPressedKeys())
-            {   
-                pressedKey = a.ToString();
-                string pressedKeyStr = _pianoSprite.GetKeyStr(pressedKey);
+            KeyboardState ks = Keyboard.GetState();
+            Keys[] pressedKey = ks.GetPressedKeys();
+            if(pressedKey.Length > 0){
+                string pressedKeyStr = _pianoSprite.GetKeyStr(pressedKey[0].ToString());
                 if(pressedKeyStr.Length > 0){
                     _pianoObj.StrikeKey(pressedKeyStr[0]);
                     _audioObj.Reset();
@@ -65,10 +57,8 @@ namespace InteractivePiano
                         _audioObj.Play(_pianoObj.Play());
                     }
                 }
-            
                 
-                
-            }  
+            }
             // TODO: Add your update logic here
 
             base.Update(gameTime);

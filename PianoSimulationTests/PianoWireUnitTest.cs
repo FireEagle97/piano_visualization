@@ -9,7 +9,8 @@ namespace PianoSimulationTests
         public void TestSample(){
             PianoWire aWire = new PianoWire(2,10);
             double[] numsArr = new double[]{1,2,3,4,5};
-            aWire.SamplesArr.Fill(numsArr);
+            aWire.Strike();
+            double num = aWire.Sample();
             Assert.AreEqual(1,aWire.Sample());
 
             

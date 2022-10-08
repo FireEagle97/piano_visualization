@@ -15,7 +15,6 @@ namespace InteractivePiano{
         private SpriteFont note;
         private string _keysStr;
         private List<string>_keysNotes;
-        // private Texture2D _greyImage;
         private Game _game;
         private KeyboardState _previousKBState;
         private KeyboardState _currentKBState;
@@ -56,6 +55,7 @@ namespace InteractivePiano{
                     }
                     pxBlack+=68;
                 }
+
             }
             base.Draw(gameTime);
         }
@@ -67,7 +67,7 @@ namespace InteractivePiano{
             Piano pianoObj = new Piano();
             _keysStr = pianoObj.Keys;
             _keysNotes = new List<string>{"C","C#","D","D#","E","F","F#","G","G#","A","A#","B","C","C#","D",
-            "D#","E","F","F#","G","G#","A","A#","B","C","C#","D","D#","E","F","F#","G","G#","A","A#","B","C"};
+            "D#","E","F","F#","G","G#","A","A#","B","C","C#","D","D#","E","F","F#","G","G#","A","A#","B","C", "keyNotFound"};
             for(int i =0; i< _keysStr.Length; i++){
                 _keys.Add(new Key(0,0,GraphicsDevice.Viewport.Width, GraphicsDevice.Viewport.Height, false,_keysNotes[i]));
             } 
@@ -94,16 +94,14 @@ namespace InteractivePiano{
                 for (int i =0; i< _keys.Count; i++){
                     _keys[i].IsPressed = false;
                 }
-                // _currentKBState = _previousKBState;
-                // pressedKey = LoadJson(pressedKeys[0].ToString());
-                // pressedKeyIndx = _keysStr.IndexOf(pressedKey);
-                // _keys[pressedKeyIndx].IsPressed = false;
             }
             if (pressedKeys.Length > 0){
                 pressedKey = GetKeyStr(pressedKeys[0].ToString());
-                pressedKeyIndx = _keysStr.IndexOf(pressedKey);
-                _keys[pressedKeyIndx].IsPressed = true;
-                
+                if(pressedKey.Length >0){
+                    pressedKeyIndx = _keysStr.IndexOf(pressedKey);
+                    _keys[pressedKeyIndx].IsPressed = true;
+                }
+
             }
             base.Update(gameTime);
         }
