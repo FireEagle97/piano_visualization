@@ -18,6 +18,7 @@ namespace InteractivePiano
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            _pianoSprite = new PianoSprite(this);
         }
 
         protected override void Initialize()
@@ -28,7 +29,7 @@ namespace InteractivePiano
             _graphics.ApplyChanges();
             _audioObj = Audio.Instance;
             // _pianoSprites = new List<PianoSprite>();
-            _pianoSprite = new PianoSprite(this);
+            // _pianoSprite = new PianoSprite(this);
             this.Components.Add(_pianoSprite);
             // foreach(PianoSprite _pianoSprite in _pianoSprites){
             //     _pianoSprite = new PianoSprite(this);
@@ -56,9 +57,7 @@ namespace InteractivePiano
             foreach (Keys a in ns.GetPressedKeys())
             {   
                 pressedKey = a.ToString();
-                string pressedKeyStr = _pianoSprite.LoadJson(pressedKey);
-                int pressedKeyInd = _pianoObj.Keys.IndexOf(pressedKeyStr);
-                _pianoSprite.Keys[pressedKeyInd].IsPressed = true;
+                string pressedKeyStr = _pianoSprite.GetKeyStr(pressedKey);
                 if(pressedKeyStr.Length > 0){
                     _pianoObj.StrikeKey(pressedKeyStr[0]);
                     _audioObj.Reset();
@@ -66,7 +65,7 @@ namespace InteractivePiano
                         _audioObj.Play(_pianoObj.Play());
                     }
                 }
-                
+            
                 
                 
             }  

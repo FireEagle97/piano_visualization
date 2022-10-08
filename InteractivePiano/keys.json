@@ -1,117 +1,154 @@
 [
     {
         "Q":{
-            "key":"q"
+            "key":"q",
+            "note":"C"
             
         },
         "D2":{
-            "key": "2"
+            "key": "2",
+            "note":"C#"
             
         },
         "W":{
-            "key":"w"
+            "key":"w",
+            "note":"D"
         },
         "E":{
-            "key":"e"
+            "key":"e",
+            "note":"D#"
         },
         "D4":{
-            "key":"4"
+            "key":"4",
+            "note":"E"
         },
         "R":{
-            "key":"r"
+            "key":"r",
+            "note":"F"
         },
         "D5":{
-            "key":"5"
+            "key":"5",
+            "note":"F#"
         },
         "T":{
-            "key":"t"
+            "key":"t",
+            "note":"G"
         },
         "Y":{
-            "key":"y"
+            "key":"y",
+            "note":"G#"
         },
         "D7":{
-            "key":"7"
+            "key":"7",
+            "note":"A"
         },
         "U":{
-            "key":"u"
+            "key":"u",
+            "note":"A#"
         },
         "D8":{
-            "key":"8"
+            "key":"8",
+            "note":"B"
         },
         "I":{
-            "key":"i"
+            "key":"i",
+            "note":"C"
         },
         "D9":{
-            "key":"9"
+            "key":"9",
+            "note":"C#"
         },
         "O":{
-            "key":"o"
+            "key":"o",
+            "note":"D"
         },
         "P":{
-            "key":"p"
+            "key":"p",
+            "note":"D#"
         },
         "OemMinus":{
-            "key":"-"
+            "key":"-",
+            "note":"E"
         },
         "OemCloseBrackets":{
-            "key":"["
+            "key":"[",
+            "note":"F"
         },
         "OemPlus":{
-            "key":"="
+            "key":"=",
+            "note":"F#"
         },
         "Z":{
-            "key":"z"
+            "key":"z",
+            "note":"G"
         },
         "X":{
-            "key":"x"
+            "key":"x",
+            "note":"G#"
         },
         "D":{
-            "key":"d"
+            "key":"d",
+            "note":"A"
         },
         "C":{
-            "key":"c"
+            "key":"c",
+            "note":"A#"
         },
         "F":{
-            "key":"f"
+            "key":"f",
+            "note":"B"
         },
         "V":{
-            "key":"v"
+            "key":"v",
+            "note":"C"
         },
         "G":{
-            "key":"g"
+            "key":"g",
+            "note":"C#"
         },
         "B":{
-            "key":"b"
+            "key":"b",
+            "note":"D"
         },
         "N":{
-            "key":"n"
+            "key":"n",
+            "note":"D#"
         },
         "J":{
-            "key":"j"
+            "key":"j",
+            "note":"E"
         },
         "M":{
-            "key":"m"
+            "key":"m",
+            "note":"F"
         },
         "K":{
-            "key":"k"
+            "key":"k",
+            "note":"F#"
         },
         "OemComma":{
-            "key":","
+            "key":",",
+            "note":"G"
         },
         "OemPeriod":{
-            "key":"."
+            "key":".",
+            "note":"G#"
         },
         "OemSimicolon":{
-            "key":";"
+            "key":";",
+            "note":"A"
         },
         "OemQuestion":{
-            "key":"/"
+            "key":"/",
+            "note":"A#"
         },
         "OemQuotes":{
-            "key":"'"
+            "key":"'",
+            "note":"B"
         },
         "Space":{
-            "key":" "
+            "key":" ",
+            "note":"C"
         }
 
     }
